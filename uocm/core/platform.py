@@ -1,4 +1,5 @@
 """
+Platform detection and utilities
 Detecção e utilitários de plataforma
 """
 
@@ -10,31 +11,49 @@ from typing import Optional
 
 
 class Platform:
-    """Utilitários de plataforma"""
+    """
+    Platform utilities
+    Utilitários de plataforma
+    """
     
     @staticmethod
     def get_system() -> str:
-        """Retorna sistema operacional"""
+        """
+        Returns operating system
+        Retorna sistema operacional
+        """
         return platform.system()
     
     @staticmethod
     def is_macos() -> bool:
-        """Verifica se é macOS"""
+        """
+        Checks if running on macOS
+        Verifica se é macOS
+        """
         return Platform.get_system() == "Darwin"
     
     @staticmethod
     def is_windows() -> bool:
-        """Verifica se é Windows"""
+        """
+        Checks if running on Windows
+        Verifica se é Windows
+        """
         return Platform.get_system() == "Windows"
     
     @staticmethod
     def is_linux() -> bool:
-        """Verifica se é Linux"""
+        """
+        Checks if running on Linux
+        Verifica se é Linux
+        """
         return Platform.get_system() == "Linux"
     
     @staticmethod
     def get_app_data_path() -> Path:
-        """Retorna caminho para dados da aplicação"""
+        """
+        Returns application data path
+        Retorna caminho para dados da aplicação
+        """
         system = Platform.get_system()
         
         if system == "Darwin":  # macOS
@@ -46,20 +65,28 @@ class Platform:
     
     @staticmethod
     def get_resource_path() -> Optional[Path]:
-        """Retorna caminho para recursos (útil quando empacotado)"""
+        """
+        Returns resource path (useful when packaged)
+        Retorna caminho para recursos (útil quando empacotado)
+        """
         if getattr(sys, 'frozen', False):
+            # Packaged application (PyInstaller, py2app, etc.)
             # Aplicação empacotada (PyInstaller, py2app, etc.)
             if Platform.is_macos():
                 return Path(sys.executable).parent.parent / "Resources"
             else:
                 return Path(sys.executable).parent
         else:
+            # Running in development mode
             # Executando em modo desenvolvimento
             return Path(__file__).parent.parent.parent
     
     @staticmethod
     def get_executable_name() -> str:
-        """Retorna nome do executável"""
+        """
+        Returns executable name
+        Retorna nome do executável
+        """
         if Platform.is_windows():
             return "uocm.exe"
         else:
@@ -67,12 +94,18 @@ class Platform:
     
     @staticmethod
     def can_detect_hardware() -> bool:
-        """Verifica se pode detectar hardware (apenas macOS)"""
+        """
+        Checks if hardware detection is available (macOS only)
+        Verifica se pode detectar hardware (apenas macOS)
+        """
         return Platform.is_macos()
     
     @staticmethod
     def get_system_profiler_command() -> Optional[str]:
-        """Retorna comando system_profiler (apenas macOS)"""
+        """
+        Returns system_profiler command (macOS only)
+        Retorna comando system_profiler (apenas macOS)
+        """
         if Platform.is_macos():
             return "system_profiler"
         return None

@@ -1,5 +1,6 @@
 """
 Universal OpenCore Manager (UOCM)
+Advanced EFI generator and manager for Hackintosh
 Gerador e gerenciador avançado de EFI para Hackintosh
 """
 

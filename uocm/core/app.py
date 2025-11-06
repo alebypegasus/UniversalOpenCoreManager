@@ -1,4 +1,5 @@
 """
+Main application class with style configuration
 Classe principal da aplicação com configurações de estilo
 """
 
@@ -8,20 +9,28 @@ from PyQt6.QtGui import QFont, QPalette, QColor
 
 
 class UOCMApplication:
-    """Classe para configuração da aplicação"""
+    """
+    Application configuration class
+    Classe para configuração da aplicação
+    """
     
     @staticmethod
     def setup_styles(app: QApplication) -> None:
-        """Configura o estilo Liquid Glass da aplicação"""
+        """
+        Configures the Liquid Glass style for the application
+        Configura o estilo Liquid Glass da aplicação
+        """
         app.setStyle("Fusion")
         
+        # Configure Liquid Glass color palette
         # Configurar paleta de cores Liquid Glass
         palette = QPalette()
         
+        # Base colors (macOS Tahoe style)
         # Cores base (macOS Tahoe style)
-        bg_color = QColor(30, 30, 30, 230)  # Fundo translúcido escuro
-        fg_color = QColor(255, 255, 255, 255)  # Texto branco
-        accent_color = QColor(0, 122, 255, 255)  # Azul sistema macOS
+        bg_color = QColor(30, 30, 30, 230)  # Dark translucent background / Fundo translúcido escuro
+        fg_color = QColor(255, 255, 255, 255)  # White text / Texto branco
+        accent_color = QColor(0, 122, 255, 255)  # macOS system blue / Azul sistema macOS
         secondary_color = QColor(100, 100, 100, 200)
         
         # Window
@@ -50,11 +59,13 @@ class UOCMApplication:
         
         app.setPalette(palette)
         
+        # Configure font
         # Configurar fonte
         font = QFont("SF Pro Display", 13)
         font.setHintingPreference(QFont.HintingPreference.PreferDefaultHinting)
         app.setFont(font)
         
+        # Additional CSS style for glass effects
         # Estilo CSS adicional para efeitos glass
         app.setStyleSheet("""
             QMainWindow {

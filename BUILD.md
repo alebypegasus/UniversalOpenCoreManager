@@ -1,57 +1,57 @@
-# Guia de Build e Compilação - UOCM
+# Build and Compilation Guide - UOCM
 
-## Pré-requisitos
+## Prerequisites / Pré-requisitos
 
 ### macOS
 - Python 3.11+
 - Xcode Command Line Tools
-- py2app (instalado automaticamente pelo script)
+- py2app (installed automatically by script)
 
 ### Windows
 - Python 3.11+
 - Visual C++ Redistributable
-- PyInstaller (instalado automaticamente pelo script)
+- PyInstaller (installed automatically by script)
 
-## Build para macOS
+## Build for macOS
 
-### 1. Preparar ambiente
+### 1. Prepare environment
 
 ```bash
-# Instalar dependências
+# Install dependencies
 pip install -r requirements.txt
 
-# Instalar dependências de desenvolvimento (opcional)
+# Install development dependencies (optional)
 pip install -e ".[dev]"
 ```
 
 ### 2. Build
 
 ```bash
-chmod +x scripts/build_mac.sh
-./scripts/build_mac.sh
+chmod +x scripts/build_mac_pyinstaller.sh
+./scripts/build_mac_pyinstaller.sh
 ```
 
-O arquivo `.app` será criado em `dist/UOCM.app`.
+The `.app` file will be created in `dist/UOCM.app`.
 
-### 3. Testar
+### 3. Test
 
 ```bash
 open dist/UOCM.app
 ```
 
-### 4. Code Signing (Opcional)
+### 4. Code Signing (Optional)
 
 ```bash
 chmod +x scripts/sign_and_notarize.sh
 ./scripts/sign_and_notarize.sh dist/UOCM.app "Developer ID Application: Your Name (TEAM_ID)"
 ```
 
-## Build para Windows
+## Build for Windows
 
-### 1. Preparar ambiente
+### 1. Prepare environment
 
 ```batch
-REM Instalar dependências
+REM Install dependencies
 pip install -r requirements.txt
 ```
 
@@ -61,15 +61,15 @@ pip install -r requirements.txt
 scripts\build_windows.bat
 ```
 
-O arquivo `.exe` será criado em `dist/UOCM.exe`.
+The `.exe` file will be created in `dist/UOCM.exe`.
 
-### 3. Testar
+### 3. Test
 
 ```batch
 dist\UOCM.exe
 ```
 
-## Teste e Build Completo
+## Complete Test and Build
 
 ### macOS/Linux
 
@@ -84,13 +84,19 @@ chmod +x scripts/test_build.sh
 scripts\test_build.bat --build
 ```
 
+This script:
+1. Runs tests
+2. Checks lint
+3. Checks types (mypy)
+4. Compiles the application (if `--build` is specified)
+
 Este script:
 1. Executa testes
 2. Verifica lint
 3. Verifica tipos (mypy)
 4. Compila a aplicação (se `--build` for especificado)
 
-## Estrutura de Arquivos Gerados
+## Generated File Structure
 
 ### macOS
 ```
@@ -98,7 +104,7 @@ dist/
 └── UOCM.app/
     ├── Contents/
     │   ├── MacOS/
-    │   │   └── uocm (executável)
+    │   │   └── uocm (executable)
     │   ├── Resources/
     │   │   ├── translations/
     │   │   ├── templates/
@@ -109,49 +115,56 @@ dist/
 ### Windows
 ```
 dist/
-└── UOCM.exe (executável standalone)
+└── UOCM.exe (standalone executable)
 ```
 
-## Internacionalização
+## Internationalization
 
-O UOCM suporta múltiplos idiomas através de arquivos JSON em `translations/`:
+UOCM supports multiple languages through JSON files in `translations/`:
 
-- `pt_BR.json` - Português (Brasil)
-- `en_US.json` - Inglês (EUA)
+- `pt_BR.json` - Portuguese (Brazil)
+- `en_US.json` - English (US)
 
-O idioma é detectado automaticamente baseado no sistema operacional.
+The language is automatically detected based on the operating system.
+
+O idioma é detectado automaticamente com base no sistema operacional.
 
 ## Troubleshooting
 
-### Erro: "Python 3.11+ é necessário"
-- Instale Python 3.11 ou superior
-- Verifique com `python3 --version`
+### Error: "Python 3.11+ is required"
+- Install Python 3.11 or higher
+- Check with `python3 --version`
 
-### Erro: "ModuleNotFoundError: No module named 'tkinter'"
-- macOS: Instale Xcode Command Line Tools
+### Error: "ModuleNotFoundError: No module named 'tkinter'"
+- macOS: Install Xcode Command Line Tools
 - Linux: `sudo apt-get install python3-tk`
-- Windows: Normalmente incluído
+- Windows: Usually included
 
-### Erro: "PyInstaller não encontrado"
-- Execute: `pip install PyInstaller`
+### Error: "PyInstaller not found"
+- Run: `pip install PyInstaller`
 
-### Erro: "py2app não encontrado"
-- Execute: `pip install py2app`
+### Error: "py2app not found"
+- Run: `pip install py2app`
 
-## Distribuição
+## Distribution
 
 ### macOS
-- Crie um `.dmg` para distribuição
-- Use `hdiutil` para criar DMG
-- Assine e notarize para distribuição fora da App Store
+- Create a `.dmg` for distribution
+- Use `hdiutil` to create DMG
+- Sign and notarize for distribution outside App Store
 
 ### Windows
-- O `.exe` pode ser distribuído diretamente
-- Considere criar um instalador com Inno Setup ou NSIS
+- The `.exe` can be distributed directly
+- Consider creating an installer with Inno Setup or NSIS
+
+## Important Notes
+
+1. **Hardware Detection**: Works only on macOS
+2. **Resources**: Files in `translations/`, `templates/`, and `plugins/` are included in the build
+3. **Database**: SQLite will be created in `~/Library/Application Support/UOCM/` (macOS) or `%APPDATA%/UOCM/` (Windows)
 
 ## Notas Importantes
 
 1. **Detecção de Hardware**: Funciona apenas no macOS
 2. **Recursos**: Arquivos em `translations/`, `templates/` e `plugins/` são incluídos no build
 3. **Banco de Dados**: SQLite será criado em `~/Library/Application Support/UOCM/` (macOS) ou `%APPDATA%/UOCM/` (Windows)
-

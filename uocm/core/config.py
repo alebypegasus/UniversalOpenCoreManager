@@ -1,4 +1,5 @@
 """
+Global application configuration
 Configurações globais da aplicação
 """
 
@@ -10,7 +11,10 @@ from uocm.core.platform import Platform
 
 
 class Config:
-    """Configurações centralizadas da aplicação"""
+    """
+    Centralized application configuration
+    Configurações centralizadas da aplicação
+    """
     
     _app_path: Optional[Path] = None
     _data_path: Optional[Path] = None
@@ -19,26 +23,37 @@ class Config:
     
     @classmethod
     def set_app_path(cls, path: Path) -> None:
-        """Define o caminho base da aplicação"""
+        """
+        Sets the base application path
+        Define o caminho base da aplicação
+        """
         cls._app_path = path
         cls._data_path = path / "data"
         cls._config_path = path / "config"
         cls._db_path = cls._data_path / "uocm.db"
         
+        # Create necessary directories
         # Criar diretórios necessários
         cls._data_path.mkdir(parents=True, exist_ok=True)
         cls._config_path.mkdir(parents=True, exist_ok=True)
     
     @classmethod
     def get_app_path(cls) -> Path:
-        """Retorna o caminho base da aplicação"""
+        """
+        Returns the base application path
+        Retorna o caminho base da aplicação
+        """
         if cls._app_path is None:
             raise RuntimeError("App path not set. Call set_app_path() first.")
         return cls._app_path
     
     @classmethod
     def get_data_path(cls) -> Path:
-        """Retorna o caminho para dados da aplicação"""
+        """
+        Returns the path for application data
+        Retorna o caminho para dados da aplicação
+        """
+        # If not configured, use default system path
         # Se não estiver configurado, usar caminho padrão do sistema
         if cls._data_path is None:
             return Platform.get_app_data_path()

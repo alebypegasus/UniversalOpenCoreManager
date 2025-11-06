@@ -1,56 +1,80 @@
-# Assets do UOCM
+# UOCM Assets
+
+This folder contains the visual assets for the application.
 
 Esta pasta contém os assets visuais da aplicação.
 
-## Ícones
+## Icons / Ícones
 
 ### macOS
-- `icon.icns` - Ícone para macOS (.app bundle)
+- `icon.icns` - Icon for macOS (.app bundle)
 
 ### Windows
-- `icon.ico` - Ícone para Windows (.exe)
+- `icon.ico` - Icon for Windows (.exe)
 
-### Desenvolvimento
-- `icon.png` - Ícone PNG de alta resolução (1024x1024)
-- `icon.svg` - Ícone vetorial (opcional)
+### Development / Desenvolvimento
+- `icon.png` - High resolution PNG icon (1024x1024)
+- `icon.svg` - Vector icon (optional)
 
-## Como criar os ícones
+## How to Create Icons / Como Criar Ícones
 
 ### macOS (.icns)
 
-1. Tenha uma imagem PNG de 1024x1024 pixels
-2. Use `iconutil` ou uma ferramenta como:
+1. Have a 1024x1024 pixel PNG image
+2. Use `iconutil` or a tool like:
    - [IconGenerator](https://iconGenerator.app)
    - [Image2icon](http://www.img2icnsapp.com/)
-   - Ou manualmente crie um `.iconset`:
+   - Or manually create a `.iconset`:
 
 ```bash
-# Criar estrutura .iconset
+# Create .iconset structure
 mkdir icon.iconset
 
-# Copiar imagens em diferentes tamanhos
+# Copy images in different sizes
 # icon_16x16.png, icon_32x32.png, icon_128x128.png, etc.
 
-# Converter para .icns
+# Convert to .icns
 iconutil -c icns icon.iconset -o icon.icns
 ```
 
 ### Windows (.ico)
 
-1. Tenha uma imagem PNG de 1024x1024 pixels
-2. Use uma ferramenta online ou:
+1. Have a 1024x1024 pixel PNG image
+2. Use an online tool or:
    - [IcoFX](https://icofx.ro/)
    - [Online ICO Converter](https://convertio.co/png-ico/)
-   - Ou use ImageMagick:
+   - Or use Python with Pillow:
 
 ```bash
-convert icon.png -define icon:auto-resize=256,128,64,48,32,16 icon.ico
+python scripts/create_ico.py
 ```
 
-## Notas
+## Notes / Notas
+
+- The icon should have a transparent background (PNG with alpha)
+- Recommended sizes: 16x16 up to 1024x1024
+- For macOS, include multiple sizes in .icns
+- For Windows, include multiple sizes in .ico
 
 - O ícone deve ter fundo transparente (PNG com alpha)
 - Tamanhos recomendados: 16x16 até 1024x1024
 - Para macOS, incluir múltiplos tamanhos no .icns
 - Para Windows, incluir múltiplos tamanhos no .ico
 
+## Automatic Generation / Geração Automática
+
+Run the script to automatically generate both icons:
+
+Execute o script para gerar automaticamente ambos os ícones:
+
+```bash
+./scripts/create_icons.sh
+```
+
+This will create:
+- `assets/icon.icns` (macOS)
+- `assets/icon.ico` (Windows)
+
+Isso criará:
+- `assets/icon.icns` (macOS)
+- `assets/icon.ico` (Windows)

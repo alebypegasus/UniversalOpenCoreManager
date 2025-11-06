@@ -1,4 +1,5 @@
 """
+Internationalization (i18n) system
 Sistema de internacionalização (i18n)
 """
 
@@ -11,11 +12,14 @@ from uocm.core.config import Config
 
 
 class Translator:
-    """Gerenciador de traduções"""
+    """
+    Translation manager
+    Gerenciador de traduções
+    """
     
     _instance: Optional['Translator'] = None
     _translations: Dict[str, Dict[str, str]] = {}
-    _current_language: str = "pt_BR"
+    _current_language: str = "en_US"  # English is primary
     
     def __new__(cls):
         if cls._instance is None:
@@ -24,19 +28,25 @@ class Translator:
         return cls._instance
     
     def _load_translations(self) -> None:
-        """Carrega traduções dos arquivos JSON"""
+        """
+        Loads translations from JSON files
+        Carrega traduções dos arquivos JSON
+        """
         try:
             translations_dir = Config.get_app_path() / "translations"
         except RuntimeError:
+            # If Config not initialized, use relative path
             # Se Config não estiver inicializado, usar caminho relativo
             from pathlib import Path
             translations_dir = Path(__file__).parent.parent.parent / "translations"
         
         translations_dir.mkdir(parents=True, exist_ok=True)
         
+        # Detect system language
         # Detectar idioma do sistema
         self._current_language = self._detect_system_language()
         
+        # Load translations
         # Carregar traduções
         for lang_file in translations_dir.glob("*.json"):
             lang_code = lang_file.stem
@@ -46,45 +56,71 @@ class Translator:
             except Exception:
                 pass
         
-        # Se não houver tradução para o idioma detectado, usar pt_BR
+        # If no translation for detected language, use en_US (English is primary)
         if self._current_language not in self._translations:
-            self._current_language = "pt_BR"
+            self._current_language = "en_US"
     
     def _detect_system_language(self) -> str:
-        """Detecta idioma do sistema"""
+        """
+        Detects system language automatically
+        Detects language from system locale
+        Returns 'en_US' as default (English is primary)
+        """
         try:
+            # Try to get system locale
             sys_lang, _ = locale.getdefaultlocale()
             if sys_lang:
-                if sys_lang.startswith("pt"):
+                lang_lower = sys_lang.lower()
+                if lang_lower.startswith("pt"):
                     return "pt_BR"
-                elif sys_lang.startswith("en"):
+                elif lang_lower.startswith("en"):
+                    return "en_US"
+            
+            # Try alternative method
+            import os
+            lang_env = os.environ.get("LANG", "")
+            if lang_env:
+                if "pt" in lang_env.lower():
+                    return "pt_BR"
+                elif "en" in lang_env.lower():
                     return "en_US"
         except Exception:
             pass
-        return "pt_BR"
+        
+        # Default to English (primary language)
+        return "en_US"
     
     def set_language(self, language: str) -> None:
-        """Define idioma atual"""
+        """
+        Sets current language
+        Define idioma atual
+        """
         if language in self._translations:
             self._current_language = language
     
     def get_language(self) -> str:
-        """Retorna idioma atual"""
+        """
+        Returns current language
+        Retorna idioma atual
+        """
         return self._current_language
     
     def translate(self, key: str, default: Optional[str] = None) -> str:
         """
+        Translates a key
         Traduz uma chave
         
         Args:
-            key: Chave de tradução (ex: "app.title")
-            default: Valor padrão se não encontrar tradução
+            key: Translation key (e.g., "app.title")
+            default: Default value if translation not found
         
         Returns:
+            Translated text
             Texto traduzido
         """
         translations = self._translations.get(self._current_language, {})
         
+        # Search translation with support for nested keys (e.g., "app.title")
         # Buscar tradução com suporte a chaves aninhadas (ex: "app.title")
         keys = key.split(".")
         value = translations
@@ -98,6 +134,7 @@ class Translator:
         if value and isinstance(value, str):
             return value
         
+        # If not found, try English as fallback
         # Se não encontrou, tentar inglês como fallback
         if self._current_language != "en_US":
             en_translations = self._translations.get("en_US", {})
@@ -113,30 +150,46 @@ class Translator:
         return default or key
     
     def get_available_languages(self) -> list[str]:
-        """Retorna lista de idiomas disponíveis"""
+        """
+        Returns list of available languages
+        Retorna lista de idiomas disponíveis
+        """
         return list(self._translations.keys())
 
 
+# Global instance
 # Instância global
 _translator = Translator()
 
 
 def tr(key: str, default: Optional[str] = None) -> str:
-    """Função auxiliar para tradução"""
+    """
+    Helper function for translation
+    Função auxiliar para tradução
+    """
     return _translator.translate(key, default)
 
 
 def set_language(language: str) -> None:
-    """Define idioma"""
+    """
+    Sets language
+    Define idioma
+    """
     _translator.set_language(language)
 
 
 def get_language() -> str:
-    """Retorna idioma atual"""
+    """
+    Returns current language
+    Retorna idioma atual
+    """
     return _translator.get_language()
 
 
 def get_available_languages() -> list[str]:
-    """Retorna idiomas disponíveis"""
+    """
+    Returns available languages
+    Retorna idiomas disponíveis
+    """
     return _translator.get_available_languages()
 

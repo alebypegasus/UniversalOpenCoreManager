@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "OpenCore Minimal Schema (placeholder)",
+  "type": "object",
+  "properties": {
+    "ACPI": { "type": "object" },
+    "Booter": { "type": "object" },
+    "DeviceProperties": { "type": "object" },
+    "Kernel": { "type": "object" },
+    "Misc": { "type": "object" },
+    "NVRAM": { "type": "object" },
+    "PlatformInfo": { "type": "object" },
+    "UEFI": { "type": "object" }
+  },
+  "required": [
+    "ACPI",
+    "Booter",
+    "DeviceProperties",
+    "Kernel",
+    "Misc",
+    "NVRAM",
+    "PlatformInfo",
+    "UEFI"
+  ]
+}
+

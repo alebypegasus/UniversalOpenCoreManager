@@ -1,0 +1,10 @@
+{
+  "name": "example_heuristic",
+  "version": "1.0.0",
+  "author": "Example Author",
+  "description": "Plugin de exemplo com heurísticas customizadas",
+  "entry_point": "__init__",
+  "permissions": ["read_hardware", "recommend_smbios", "recommend_kexts"],
+  "dependencies": []
+}
+

@@ -1,0 +1,10 @@
+# Esta pasta contém os assets visuais da aplicação
+# 
+# Para criar os ícones:
+# 1. Coloque uma imagem PNG de 1024x1024 em assets/icon.png
+# 2. Execute: ./scripts/create_icons.sh
+# 
+# Isso criará:
+# - assets/icon.icns (macOS)
+# - assets/icon.ico (Windows, se ImageMagick estiver instalado)
+

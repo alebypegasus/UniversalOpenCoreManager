@@ -1,0 +1,4 @@
+"""
+Módulo de interface gráfica
+"""
+

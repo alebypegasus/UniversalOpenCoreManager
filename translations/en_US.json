@@ -1,0 +1,78 @@
+{
+  "app": {
+    "title": "UOCM - Universal OpenCore Manager",
+    "version": "0.1.0",
+    "organization": "Mestre EFI"
+  },
+  "menu": {
+    "file": "File",
+    "new_efi": "New EFI",
+    "open_efi": "Open EFI",
+    "exit": "Exit",
+    "help": "Help",
+    "about": "About",
+    "settings": "Settings",
+    "language": "Language"
+  },
+  "ui": {
+    "detector": {
+      "title": "Hardware Detection",
+      "description": "Click the button below to automatically detect system hardware.\nThe information will be used to generate EFI recommendations.",
+      "detect_button": "Detect Hardware",
+      "detecting": "Detecting...",
+      "detected": "Hardware detected successfully!"
+    },
+    "generator": {
+      "title": "Automatic EFI Generator",
+      "description": "Automatically generate a complete EFI structure based on detected hardware.\nSelect the generation mode and click Generate.",
+      "mode": "Mode:",
+      "conservative": "Conservative",
+      "standard": "Standard",
+      "aggressive": "Aggressive",
+      "generate_button": "Generate EFI",
+      "generating": "Generating EFI...",
+      "generated": "EFI generated successfully!"
+    },
+    "editor": {
+      "title": "config.plist Editor",
+      "open": "Open",
+      "save": "Save",
+      "undo": "Undo",
+      "redo": "Redo",
+      "find": "Find",
+      "oc_snapshot": "OC Snapshot",
+      "oc_clean_snapshot": "OC Clean Snapshot",
+      "validate": "Validate",
+      "ready": "Ready",
+      "file_loaded": "File loaded: {0}",
+      "file_saved": "File saved: {0}",
+      "validation_ok": "config.plist is valid!",
+      "validation_errors": "Validation: {0} error(s) found"
+    },
+    "kext_manager": {
+      "title": "Kext Manager",
+      "update_catalog": "Update Catalog",
+      "download": "Download",
+      "installed": "Installed"
+    }
+  },
+  "messages": {
+    "error": "Error",
+    "success": "Success",
+    "warning": "Warning",
+    "info": "Information",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "yes": "Yes",
+    "no": "No",
+    "ok": "OK"
+  },
+  "errors": {
+    "hardware_not_detected": "Please detect hardware first in the Detector tab.",
+    "file_not_found": "File not found",
+    "load_error": "Error loading file",
+    "save_error": "Error saving file",
+    "validation_failed": "Validation failed"
+  }
+}
+

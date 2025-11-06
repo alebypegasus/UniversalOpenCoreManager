@@ -1,0 +1,78 @@
+{
+  "app": {
+    "title": "UOCM - Universal OpenCore Manager",
+    "version": "0.1.0",
+    "organization": "Mestre EFI"
+  },
+  "menu": {
+    "file": "Arquivo",
+    "new_efi": "Novo EFI",
+    "open_efi": "Abrir EFI",
+    "exit": "Sair",
+    "help": "Ajuda",
+    "about": "Sobre",
+    "settings": "Configurações",
+    "language": "Idioma"
+  },
+  "ui": {
+    "detector": {
+      "title": "Detecção de Hardware",
+      "description": "Clique no botão abaixo para detectar automaticamente o hardware do sistema.\nAs informações serão usadas para gerar recomendações de EFI.",
+      "detect_button": "Detectar Hardware",
+      "detecting": "Detectando...",
+      "detected": "Hardware detectado com sucesso!"
+    },
+    "generator": {
+      "title": "Gerador Automático de EFI",
+      "description": "Gere automaticamente uma estrutura EFI completa baseada no hardware detectado.\nSelecione o modo de geração e clique em Gerar.",
+      "mode": "Modo:",
+      "conservative": "Conservador",
+      "standard": "Padrão",
+      "aggressive": "Agressivo",
+      "generate_button": "Gerar EFI",
+      "generating": "Gerando EFI...",
+      "generated": "EFI gerado com sucesso!"
+    },
+    "editor": {
+      "title": "Editor de config.plist",
+      "open": "Abrir",
+      "save": "Salvar",
+      "undo": "Desfazer",
+      "redo": "Refazer",
+      "find": "Buscar",
+      "oc_snapshot": "OC Snapshot",
+      "oc_clean_snapshot": "OC Clean Snapshot",
+      "validate": "Validar",
+      "ready": "Pronto",
+      "file_loaded": "Arquivo carregado: {0}",
+      "file_saved": "Arquivo salvo: {0}",
+      "validation_ok": "config.plist está válido!",
+      "validation_errors": "Validação: {0} erro(s) encontrado(s)"
+    },
+    "kext_manager": {
+      "title": "Gerenciador de Kexts",
+      "update_catalog": "Atualizar Catálogo",
+      "download": "Download",
+      "installed": "Instalados"
+    }
+  },
+  "messages": {
+    "error": "Erro",
+    "success": "Sucesso",
+    "warning": "Aviso",
+    "info": "Informação",
+    "confirm": "Confirmar",
+    "cancel": "Cancelar",
+    "yes": "Sim",
+    "no": "Não",
+    "ok": "OK"
+  },
+  "errors": {
+    "hardware_not_detected": "Por favor, detecte o hardware primeiro na aba Detector.",
+    "file_not_found": "Arquivo não encontrado",
+    "load_error": "Erro ao carregar arquivo",
+    "save_error": "Erro ao salvar arquivo",
+    "validation_failed": "Validação falhou"
+  }
+}
+
